@@ -1,37 +1,37 @@
 package com.github.innovationforge.service;
 
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 import com.github.innovationforge.repository.TodoItemRepository;
-import com.github.innovationforge.web.TodoItem;
+import com.github.innovationforge.model.TodoItem;
 
 @Service
+@RequiredArgsConstructor
 public class TodoItemService {
 
-    // Other dependencies, if any
+    private final TodoItemRepository todoItemRepository;
 
-    // Your existing service methods
-
-    // Example usage of TodoItemRepository in the service
     public List<TodoItem> getAllTodoItems() {
-        return TodoItemRepository.getAllTodoItems();
+        return todoItemRepository.getAllTodoItems();
     }
 
     public TodoItem getTodoItemById(long id) {
-        return TodoItemRepository.getTodoItemById(id);
+        return todoItemRepository.getTodoItemById(id);
     }
 
     public void saveTodoItem(TodoItem todoItem) {
         if (todoItem.getId() == 0) {
-            TodoItemRepository.addTodoItem(todoItem);
+            todoItemRepository.addTodoItem(todoItem);
         } else {
-            TodoItemRepository.updateTodoItem(todoItem);
+            todoItemRepository.updateTodoItem(todoItem);
         }
     }
 
     public void deleteTodoItem(long id) {
-        TodoItemRepository.deleteTodoItem(id);
+        todoItemRepository.deleteTodoItem(id);
     }
 }

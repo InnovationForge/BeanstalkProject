@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+import com.github.innovationforge.model.TodoItem;
 import com.github.innovationforge.service.TodoItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

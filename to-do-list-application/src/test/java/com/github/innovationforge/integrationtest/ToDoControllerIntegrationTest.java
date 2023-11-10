@@ -7,7 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.innovationforge.service.TodoItemService;
 import com.github.innovationforge.web.ToDoController;
-import com.github.innovationforge.web.TodoItem;
+import com.github.innovationforge.model.TodoItem;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
