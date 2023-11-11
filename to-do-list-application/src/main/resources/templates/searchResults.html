@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="container mt-4">
-  <h1 class="mb-4">Todo List</h1>
+  <h1 class="mb-4">Search Results</h1>
   <!-- Add "Create New" button -->
   <a th:href="@{/}" class="btn btn-primary mb-3">
     <i class="fas fa-plus"></i> Create New Items
@@ -24,28 +24,9 @@
     <i class="fas fa-search"></i> Search for Items
   </a>
 
-  <!-- Filter and Sort Form -->
-  <form th:action="@{/todoList}" method="get">
-    <label for="filter">Filter:</label>
-    <select id="filter" name="filter">
-      <option value="all">All</option>
-      <option value="completed">Completed</option>
-      <option value="incomplete">Incomplete</option>
-    </select>
-
-    <label for="sortBy">Sort By:</label>
-    <select id="sortBy" name="sortBy">
-      <option value="dueDate">Due Date</option>
-      <option value="title">Title</option>
-      <!-- Add more options based on your requirements -->
-    </select>
-
-    <button type="submit">Apply</button>
-  </form>
-
   <!-- Display Incomplete Items -->
   <section>
-    <h3>Incomplete Items</h3>
+    <h3>Search Results for "<span th:text="${query}"></span>"</h3>
     <table class="table">
       <thead>
       <tr>
@@ -59,44 +40,7 @@
       </thead>
       <tbody>
       <!-- Loop through todo items and display each row -->
-      <tr th:each="todoItem : ${filteredTodoItems}" th:unless="${todoItem.completed}">
-        <td th:text="${todoItem.id}"></td>
-        <td th:text="${todoItem.title}"></td>
-        <td th:text="${todoItem.description}"></td>
-        <td th:text="${todoItem.dueDate}"></td>
-        <td th:text="${todoItem.completed} ? 'Yes' : 'No'"></td>
-        <td>
-          <!-- Add buttons with Bootstrap styling -->
-          <a th:href="@{'/editTodoItem/' + ${todoItem.id}}" class="btn btn-warning btn-sm">
-            <i class="fas fa-edit"></i> Edit
-          </a>
-          <a th:href="@{'/deleteTodoItem/' + ${todoItem.id}}" class="btn btn-danger btn-sm"
-             onclick="return confirm('Are you sure you want to delete this item?')">
-            <i class="fas fa-trash"></i> Delete
-          </a>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <!-- Display complete Items -->
-  <section>
-    <h3>Complete Items</h3>
-    <table class="table">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Due Date</th>
-        <th>Completed</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <!-- Loop through todo items and display each row -->
-      <tr th:each="todoItem : ${filteredTodoItems}" th:if="${todoItem.completed}">
+      <tr th:each="todoItem : ${searchResults}" th:unless="${todoItem.completed}">
         <td th:text="${todoItem.id}"></td>
         <td th:text="${todoItem.title}"></td>
         <td th:text="${todoItem.description}"></td>

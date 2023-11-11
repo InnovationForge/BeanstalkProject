@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,6 +41,18 @@ public class InMemoryTodoItemRepositoryImpl implements TodoItemRepository {
         } catch (IOException e) {
             log.error("Error loading initial data", e);
         }
+    }
+
+    public List<TodoItem> search(String query) {
+        String lowercaseQuery = query.toLowerCase();
+
+        return todoItemList.stream()
+                .filter(item ->
+                        item.getTitle().toLowerCase().contains(lowercaseQuery) ||
+                                item.getDescription().toLowerCase().contains(lowercaseQuery) ||
+                                item.getLabels().stream().anyMatch(label -> label.toLowerCase().contains(lowercaseQuery))
+                )
+                .collect(Collectors.toList());
     }
 
     // Retrieve all todo items

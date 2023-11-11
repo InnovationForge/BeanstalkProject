@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -16,4 +18,5 @@ public class TodoItem {
     private String description; // Detailed description of the to-do item
     private LocalDate dueDate; // Due date for the to-do item
     private boolean completed; // Flag to mark if the to-do item is completeds
+    private Set<String> labels = new HashSet<>();
 }

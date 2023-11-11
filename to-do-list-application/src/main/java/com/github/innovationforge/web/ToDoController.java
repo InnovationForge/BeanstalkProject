@@ -24,6 +24,19 @@ public class ToDoController {
 
     private final TodoItemService todoItemService;
 
+    @GetMapping("/searchForm")
+    public String showSearchForm(Model model) {
+//        model.addAttribute("todoItem", new TodoItem());
+        return "searchForm";
+    }
+    @GetMapping("/search")
+    public String search(@RequestParam String query, Model model) {
+        List<TodoItem> searchResults = todoItemService.search(query);
+        model.addAttribute("searchResults", searchResults);
+        model.addAttribute("query", query);
+        return "searchResults";
+    }
+
     @GetMapping("/")
     public String showCreateTodoItemForm(Model model) {
         model.addAttribute("todoItem", new TodoItem());
