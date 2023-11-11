@@ -17,6 +17,27 @@
   <a th:href="@{/}" class="btn btn-primary mb-3">
     <i class="fas fa-plus"></i> Create New
   </a>
+
+
+  <!-- Filter and Sort Form -->
+  <form th:action="@{/todoList}" method="get">
+    <label for="filter">Filter:</label>
+    <select id="filter" name="filter">
+      <option value="all">All</option>
+      <option value="completed">Completed</option>
+      <option value="incomplete">Incomplete</option>
+    </select>
+
+    <label for="sortBy">Sort By:</label>
+    <select id="sortBy" name="sortBy">
+      <option value="dueDate">Due Date</option>
+      <option value="title">Title</option>
+      <!-- Add more options based on your requirements -->
+    </select>
+
+    <button type="submit">Apply</button>
+  </form>
+
   <!-- Display Incomplete Items -->
   <section>
     <h3>Incomplete Items</h3>
@@ -33,7 +54,7 @@
       </thead>
       <tbody>
       <!-- Loop through todo items and display each row -->
-      <tr th:each="todoItem : ${todoItems}" th:unless="${todoItem.completed}">
+      <tr th:each="todoItem : ${filteredTodoItems}" th:unless="${todoItem.completed}">
         <td th:text="${todoItem.id}"></td>
         <td th:text="${todoItem.title}"></td>
         <td th:text="${todoItem.description}"></td>
@@ -70,7 +91,7 @@
       </thead>
       <tbody>
       <!-- Loop through todo items and display each row -->
-      <tr th:each="todoItem : ${todoItems}" th:if="${todoItem.completed}">
+      <tr th:each="todoItem : ${filteredTodoItems}" th:if="${todoItem.completed}">
         <td th:text="${todoItem.id}"></td>
         <td th:text="${todoItem.title}"></td>
         <td th:text="${todoItem.description}"></td>
