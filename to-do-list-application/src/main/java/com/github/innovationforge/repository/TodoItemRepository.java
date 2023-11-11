@@ -6,6 +6,8 @@ import com.github.innovationforge.model.TodoItem;
 
 public interface TodoItemRepository {
 
+    List<TodoItem> search(String query);
+
     List<TodoItem> getAllTodoItems();
 
     TodoItem getTodoItemById(long id);

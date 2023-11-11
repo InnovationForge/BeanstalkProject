@@ -15,6 +15,10 @@ public class TodoItemService {
 
     private final TodoItemRepository todoItemRepository;
 
+    public List<TodoItem> search(String query) {
+        return todoItemRepository.search(query);
+    }
+
     public List<TodoItem> getAllTodoItems() {
         return todoItemRepository.getAllTodoItems();
     }
