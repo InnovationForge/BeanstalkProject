@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "title": "Complete Project Proposal",
+    "description": "Finish and submit the project proposal by Friday.",
+    "dueDate": "2023-11-10"
+  },
+  {
+    "id": 2,
+    "title": "Prepare for Meeting",
+    "description": "Gather materials and notes for the client meeting.",
+    "dueDate": "2023-11-12"
+  },
+  {
+    "id": 3,
+    "title": "Read Book Chapter",
+    "description": "Read Chapter 5 of 'The Great Gatsby' for book club discussion.",
+    "dueDate": "2023-11-15"
+  },
+  {
+    "id": 4,
+    "title": "Exercise",
+    "description": "Go for a 30-minute jog in the park.",
+    "dueDate": "2023-11-20"
+  },
+  {
+    "id": 5,
+    "title": "Complete Online Course",
+    "description": "Finish the last module of the online course on web development.",
+    "dueDate": "2023-11-25"
+  },
+  {
+    "id": 6,
+    "title": "Plan Weekend Getaway",
+    "description": "Research and plan a weekend getaway with friends.",
+    "dueDate": "2023-12-01"
+  },
+  {
+    "id": 7,
+    "title": "Update Resume",
+    "description": "Update resume with latest skills and experiences.",
+    "dueDate": "2023-12-05"
+  },
+  {
+    "id": 8,
+    "title": "Practice Guitar",
+    "description": "Practice playing the guitar for at least 1 hour.",
+    "dueDate": "2023-12-10"
+  },
+  {
+    "id": 9,
+    "title": "Bake Cookies",
+    "description": "Try a new cookie recipe and bake cookies for family and friends.",
+    "dueDate": "2023-12-15"
+  },
+  {
+    "id": 10,
+    "title": "Visit Art Exhibition",
+    "description": "Attend the local art exhibition happening this weekend.",
+    "dueDate": "2023-12-20"
+  }
+]
