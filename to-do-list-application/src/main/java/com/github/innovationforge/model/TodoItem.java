@@ -1,4 +1,4 @@
-package com.github.innovationforge.web;
+package com.github.innovationforge.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
