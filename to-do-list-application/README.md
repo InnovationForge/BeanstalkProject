@@ -15,7 +15,7 @@ Here's a guide on the functionality I will implement in this To-Do List Applicat
 **To-Do Item Sorting and Filtering:**
 
 *   [ ] Provide options to sort and filter to-do items based on various criteria, such as due date or status.
-*   [ ] Allow users to mark items as completed, and have a separate section for completed items.
+*   [x] Allow users to mark items as completed, and have a separate section for completed items.
 
 **Prioritization and Labels:**
 
