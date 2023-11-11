@@ -24,8 +24,8 @@ Here's a guide on the functionality I will implement in this To-Do List Applicat
 
 **Search and Search Results:**
 
-*   [ ] Provide a search functionality that allows users to search for specific to-do items based on keywords or labels.
-*   [ ] Display search results in an organized manner.
+*   [x] Provide a search functionality that allows users to search for specific to-do items based on keywords or labels.
+*   [x] Display search results in an organized manner.
 
 **Due Date Notifications:**
 
