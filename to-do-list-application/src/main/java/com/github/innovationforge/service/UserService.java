@@ -28,5 +28,9 @@ public class UserService {
         userRepository.addUser(user);
     }
 
+    public boolean authenticate(String username, String password) {
+        return true;
+    }
+
     // Add other methods as needed
 }
