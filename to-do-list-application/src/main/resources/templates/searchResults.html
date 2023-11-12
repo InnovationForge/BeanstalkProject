@@ -35,6 +35,7 @@
         <th>Description</th>
         <th>Due Date</th>
         <th>Completed</th>
+        <th>Labels</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -46,6 +47,9 @@
         <td th:text="${todoItem.description}"></td>
         <td th:text="${todoItem.dueDate}"></td>
         <td th:text="${todoItem.completed} ? 'Yes' : 'No'"></td>
+        <td>
+          <span th:each="label : ${todoItem.labels}" th:text="${label} + ', '"></span>
+        </td>
         <td>
           <!-- Add buttons with Bootstrap styling -->
           <a th:href="@{'/editTodoItem/' + ${todoItem.id}}" class="btn btn-warning btn-sm">

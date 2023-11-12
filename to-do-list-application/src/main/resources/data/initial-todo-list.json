@@ -2,61 +2,57 @@
   {
     "id": 1,
     "title": "Complete Project Proposal",
-    "description": "Finish and submit the project proposal by Friday.",
-    "dueDate": "2023-11-10"
+    "description": "Draft and submit the project proposal for review",
+    "dueDate": "2023-11-30",
+    "completed": false,
+    "labels": ["Work", "Planning"]
   },
   {
     "id": 2,
-    "title": "Prepare for Meeting",
-    "description": "Gather materials and notes for the client meeting.",
-    "dueDate": "2023-11-12"
+    "title": "Buy Groceries",
+    "description": "Purchase items for the week",
+    "dueDate": "2023-11-15",
+    "completed": false,
+    "labels": ["Shopping", "Personal"]
   },
   {
     "id": 3,
-    "title": "Read Book Chapter",
-    "description": "Read Chapter 5 of 'The Great Gatsby' for book club discussion.",
-    "dueDate": "2023-11-15"
+    "title": "Gym Workout",
+    "description": "Hit the gym for a workout session",
+    "dueDate": "2023-11-20",
+    "completed": false,
+    "labels": ["Fitness", "Health"]
   },
   {
     "id": 4,
-    "title": "Exercise",
-    "description": "Go for a 30-minute jog in the park.",
-    "dueDate": "2023-11-20"
+    "title": "Read Chapter 5",
+    "description": "Read and summarize Chapter 5 of the book",
+    "dueDate": "2023-11-25",
+    "completed": false,
+    "labels": ["Education", "Personal"]
   },
   {
     "id": 5,
-    "title": "Complete Online Course",
-    "description": "Finish the last module of the online course on web development.",
-    "dueDate": "2023-11-25"
+    "title": "Plan Weekend Trip",
+    "description": "Organize and plan a weekend getaway",
+    "dueDate": "2023-12-01",
+    "completed": false,
+    "labels": ["Travel", "Planning"]
   },
   {
     "id": 6,
-    "title": "Plan Weekend Getaway",
-    "description": "Research and plan a weekend getaway with friends.",
-    "dueDate": "2023-12-01"
+    "title": "Clean the House",
+    "description": "Perform a thorough cleaning of the house",
+    "dueDate": "2023-11-18",
+    "completed": false,
+    "labels": ["Home", "Personal"]
   },
   {
     "id": 7,
-    "title": "Update Resume",
-    "description": "Update resume with latest skills and experiences.",
-    "dueDate": "2023-12-05"
-  },
-  {
-    "id": 8,
-    "title": "Practice Guitar",
-    "description": "Practice playing the guitar for at least 1 hour.",
-    "dueDate": "2023-12-10"
-  },
-  {
-    "id": 9,
-    "title": "Bake Cookies",
-    "description": "Try a new cookie recipe and bake cookies for family and friends.",
-    "dueDate": "2023-12-15"
-  },
-  {
-    "id": 10,
-    "title": "Visit Art Exhibition",
-    "description": "Attend the local art exhibition happening this weekend.",
-    "dueDate": "2023-12-20"
+    "title": "Complete Online Course",
+    "description": "Finish the remaining modules of the online course",
+    "dueDate": "2023-12-10",
+    "completed": false,
+    "labels": ["Education", "Work"]
   }
 ]
