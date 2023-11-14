@@ -3,6 +3,7 @@ package com.github.innovationforge.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.security.Principal;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,7 +56,11 @@ public class ToDoController {
 
 
     @GetMapping("/todoList")
-    public String showTodoList(Model model, @RequestParam(defaultValue = "all") String filter, @RequestParam(defaultValue = "dueDate") String sortBy) {
+    public String showTodoList(Model model,
+            @RequestParam(defaultValue = "all") String filter,
+            @RequestParam(defaultValue = "dueDate") String sortBy,
+            Principal principal) {
+        log.info("logged in user: {}", principal.getName());
         // Retrieve all todo items from the service
         List<TodoItem> todoItems = todoItemService.getAllTodoItems();
 
