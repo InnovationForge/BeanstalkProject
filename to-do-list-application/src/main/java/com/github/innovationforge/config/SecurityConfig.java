@@ -30,7 +30,7 @@ public class SecurityConfig {
                         .requestMatchers("/registration").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults());
+                .formLogin(form -> form.defaultSuccessUrl("/todoList", true));
 
         return http.build();
     }
