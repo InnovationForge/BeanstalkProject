@@ -3,7 +3,7 @@ Here's a guide on the functionality I will implement in this To-Do List Applicat
 
 **User Registration and Authentication:**
 
-*   [ ] Allow users to register and log in to their accounts.
+*   [x] Allow users to register and log in to their accounts.
 *   [x] Implement user authentication to ensure that only registered users can access their to-do lists.
 
 **To-Do List Management:**
@@ -69,3 +69,4 @@ Here's a guide on the functionality I will implement in this To-Do List Applicat
 
 **References**
 * [Username/Password Authentication](https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/index.html)
+* [Java Configuration](https://docs.spring.io/spring-security/reference/servlet/configuration/java.html)
