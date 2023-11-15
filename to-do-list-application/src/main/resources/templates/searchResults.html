@@ -41,7 +41,7 @@
       </thead>
       <tbody>
       <!-- Loop through todo items and display each row -->
-      <tr th:each="todoItem : ${searchResults}" th:unless="${todoItem.completed}">
+      <tr th:each="todoItem : ${searchResults}">
         <td th:text="${todoItem.id}"></td>
         <td th:text="${todoItem.title}"></td>
         <td th:text="${todoItem.description}"></td>

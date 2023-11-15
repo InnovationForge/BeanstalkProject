@@ -10,7 +10,7 @@ Here's a guide on the functionality I will implement in this To-Do List Applicat
 
 *   [x] Users should be able to create, update, and delete to-do items.
 *   [x] Each to-do item can have a title, description, due date, and status (e.g., completed or pending).
-*   [ ] Display the user's to-do list on the home page after they log in.
+*   [x] Display the user's to-do list on the home page after they log in.
 
 **To-Do Item Sorting and Filtering:**
 
@@ -20,7 +20,7 @@ Here's a guide on the functionality I will implement in this To-Do List Applicat
 **Prioritization and Labels:**
 
 *   [ ] Implement a way for users to prioritize to-do items (e.g., high, medium, low).
-*   [ ] Allow users to assign labels or categories to their tasks for better organization.
+*   [x] Allow users to assign labels or categories to their tasks for better organization.
 
 **Search and Search Results:**
 
@@ -45,7 +45,7 @@ Here's a guide on the functionality I will implement in this To-Do List Applicat
 
 **Security:**
 
-*   [ ] Implement security best practices to protect user data and ensure that only authorized users can access and modify their to-do lists.
+*   [x] Implement security best practices to protect user data and ensure that only authorized users can access and modify their to-do lists.
 
 **Error Handling:**
 

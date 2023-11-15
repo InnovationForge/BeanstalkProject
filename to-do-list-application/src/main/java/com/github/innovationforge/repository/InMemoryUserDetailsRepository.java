@@ -23,7 +23,7 @@ import jakarta.annotation.PostConstruct;
 @Slf4j
 public class InMemoryUserDetailsRepository implements UserDetailsRepository {
 
-    private static List<UserDetails> users = new ArrayList<>();
+    private List<UserDetails> users = new ArrayList<>();
     private final ObjectMapper objectMapper;
     private final UserConverter userConverter;
 
