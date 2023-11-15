@@ -73,26 +73,45 @@ public class InMemoryTodoItemRepositoryImpl implements TodoItemRepository {
     }
 
     // Add a new todo item
-    public void addTodoItem(TodoItem todoItem, String username) {
+    public synchronized void addTodoItem(TodoItem todoItem, String username) {
+        // Create a mutable ArrayList containing the elements of todoItemList
+        List<TodoItem> mutableList = new ArrayList<>(todoItemList);
+
+        // Now you can add elements to the mutable list
         todoItem.setId(idCounter++);
         todoItem.setUsername(username);
-        todoItemList.add(todoItem);
+        mutableList.add(todoItem);
+
+        // After adding all necessary elements, update todoItemList with the new list
+        todoItemList = mutableList;
     }
 
     // Update an existing todo item
-    public void updateTodoItem(TodoItem updatedTodoItem, String username) {
+    public synchronized void updateTodoItem(TodoItem updatedTodoItem, String username) {
         updatedTodoItem.setUsername(username);
-        todoItemList = todoItemList.stream()
+
+        // Create a mutable ArrayList containing the elements of todoItemList
+        List<TodoItem> mutableList = new ArrayList<>(todoItemList);
+
+        mutableList = mutableList.stream()
                 .map(existingTodoItem ->
                         existingTodoItem.getId() == updatedTodoItem.getId() &&
                                 existingTodoItem.getUsername().equals(username) ? updatedTodoItem : existingTodoItem)
                 .toList();
+        // After adding all necessary elements, update todoItemList with the new list
+        todoItemList = mutableList;
     }
 
     // Delete a todo item by ID
     public void deleteTodoItem(long id, String username) {
-        todoItemList = todoItemList.stream()
+        // Create a mutable ArrayList containing the elements of todoItemList
+        List<TodoItem> mutableList = new ArrayList<>(todoItemList);
+
+        mutableList = mutableList.stream()
                 .filter(item -> !(item.getId() == id && item.getUsername().equals(username)))
                 .collect(Collectors.toList());
+
+        // After adding all necessary elements, update todoItemList with the new list
+        todoItemList = mutableList;
     }
 }
