@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.innovationforge.model.TodoItem;
 import com.github.innovationforge.util.UserConverter;
 import com.github.innovationforge.model.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -55,7 +56,11 @@ public class InMemoryUserDetailsRepository implements UserDetailsRepository {
         return user.orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
     }
 
-    public void addUser(UserDetails newUser) {
-        users.add(newUser);
+    public synchronized void addUser(UserDetails newUser) {
+        // Create a mutable ArrayList containing the elements of todoItemList
+        List<UserDetails> mutableusersList = new ArrayList<>(users);
+        mutableusersList.add(newUser);
+        // After adding all necessary elements, update todoItemList with the new list
+        users = mutableusersList;
     }
 }

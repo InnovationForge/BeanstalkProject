@@ -13,6 +13,14 @@
 <body>
 <div class="container mt-4">
   <h1 class="mb-4">Todo List</h1>
+  <!-- Display success message -->
+
+  <div th:class="'alert alert-' + ${session.notification.type} +' alert-dismissible fade show'" role="alert" th:if="${session.notification != null}">
+    <strong th:text="${session.notification.message}"></strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+
   <!-- Add "Create New" button -->
   <a th:href="@{/}" class="btn btn-primary mb-3">
     <i class="fas fa-plus"></i> Create New Items

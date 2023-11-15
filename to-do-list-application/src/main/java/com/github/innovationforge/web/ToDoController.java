@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.github.innovationforge.model.Notification;
 import com.github.innovationforge.model.TodoItem;
 import com.github.innovationforge.service.TodoItemService;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @Slf4j
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ToDoController {
 
     private final TodoItemService todoItemService;
+    private final HttpSession session;
 
     @GetMapping("/searchForm")
     public String showSearchForm(Model model) {
@@ -50,7 +53,9 @@ public class ToDoController {
         log.info("Creating to-do item: {}", todoItem);
         // Call your service to save the todo item to your data store
         todoItemService.saveTodoItem(todoItem, principal.getName());
-
+        // Create and store a success notification
+        Notification notification = new Notification("To-do item created successfully", "success");
+        session.setAttribute("notification", notification);
         return "redirect:/todoList";
     }
 
@@ -93,6 +98,7 @@ public class ToDoController {
         TodoItem todoItem = todoItemService.getTodoItemById(id, principal.getName());
         log.info("Editing to-do item: {}", todoItem);
         model.addAttribute("todoItem", todoItem);
+        // Return the name of the Thymeleaf template for rendering§
         return "editTodoItemForm";
     }
 
@@ -100,6 +106,8 @@ public class ToDoController {
     public String updateTodoItem(@ModelAttribute("todoItem") TodoItem updatedTodoItem,Principal principal) {
         log.info("Updating to-do item: {}", updatedTodoItem);
         todoItemService.saveTodoItem(updatedTodoItem, principal.getName());
+        Notification notification = new Notification("To-do item updated successfully", "info");
+        session.setAttribute("notification", notification);
         return "redirect:/todoList";
     }
 
@@ -107,6 +115,8 @@ public class ToDoController {
     public String deleteTodoItem(@PathVariable long id, Principal principal) {
         log.info("Deleting to-do item with ID: {}", id);
         todoItemService.deleteTodoItem(id, principal.getName());
+        Notification notification = new Notification("To-do item deleted successfully", "danger");
+        session.setAttribute("notification", notification);
         return "redirect:/todoList";
     }
 }
