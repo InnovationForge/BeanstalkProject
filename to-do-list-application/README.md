@@ -57,7 +57,7 @@ Here's a guide on the functionality I will implement in this To-Do List Applicat
 
 **Feedback and Notifications:**
 
-*   [ ] Provide feedback to users when they add, update, or delete to-do items, and display notifications for important events.
+*   [x] Provide feedback to users when they add, update, or delete to-do items, and display notifications for important events.
 
 **Testing:**
 
