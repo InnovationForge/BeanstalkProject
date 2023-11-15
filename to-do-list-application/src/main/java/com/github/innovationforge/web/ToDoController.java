@@ -31,8 +31,8 @@ public class ToDoController {
         return "searchForm";
     }
     @GetMapping("/search")
-    public String search(@RequestParam String query, Model model) {
-        List<TodoItem> searchResults = todoItemService.search(query);
+    public String search(@RequestParam String query, Model model, Principal principal) {
+        List<TodoItem> searchResults = todoItemService.search(query, principal.getName());
         model.addAttribute("searchResults", searchResults);
         model.addAttribute("query", query);
         return "searchResults";
@@ -45,11 +45,11 @@ public class ToDoController {
     }
 
     @PostMapping("/createToDoItem")
-    public String createTodoItem(TodoItem todoItem) {
+    public String createTodoItem(TodoItem todoItem, Principal principal) {
         // Add validation and error handling as needed
         log.info("Creating to-do item: {}", todoItem);
         // Call your service to save the todo item to your data store
-        todoItemService.saveTodoItem(todoItem);
+        todoItemService.saveTodoItem(todoItem, principal.getName());
 
         return "redirect:/todoList";
     }
@@ -62,7 +62,7 @@ public class ToDoController {
             Principal principal) {
         log.info("logged in user: {}", principal.getName());
         // Retrieve all todo items from the service
-        List<TodoItem> todoItems = todoItemService.getAllTodoItems();
+        List<TodoItem> todoItems = todoItemService.getAllTodoItems(principal.getName());
 
         // Apply filtering logic
         List<TodoItem> filteredTodoItems;
@@ -88,25 +88,25 @@ public class ToDoController {
 
 
     @GetMapping("/editTodoItem/{id}")
-    public String showEditForm(@PathVariable long id, Model model) {
+    public String showEditForm(@PathVariable long id, Model model, Principal principal) {
         // Retrieve the todo item by ID and add it to the model
-        TodoItem todoItem = todoItemService.getTodoItemById(id);
+        TodoItem todoItem = todoItemService.getTodoItemById(id, principal.getName());
         log.info("Editing to-do item: {}", todoItem);
         model.addAttribute("todoItem", todoItem);
         return "editTodoItemForm";
     }
 
     @PostMapping("/updateTodoItem")
-    public String updateTodoItem(@ModelAttribute("todoItem") TodoItem updatedTodoItem) {
+    public String updateTodoItem(@ModelAttribute("todoItem") TodoItem updatedTodoItem,Principal principal) {
         log.info("Updating to-do item: {}", updatedTodoItem);
-        todoItemService.saveTodoItem(updatedTodoItem);
+        todoItemService.saveTodoItem(updatedTodoItem, principal.getName());
         return "redirect:/todoList";
     }
 
     @GetMapping("/deleteTodoItem/{id}")
-    public String deleteTodoItem(@PathVariable long id) {
+    public String deleteTodoItem(@PathVariable long id, Principal principal) {
         log.info("Deleting to-do item with ID: {}", id);
-        todoItemService.deleteTodoItem(id);
+        todoItemService.deleteTodoItem(id, principal.getName());
         return "redirect:/todoList";
     }
 }

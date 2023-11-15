@@ -19,4 +19,5 @@ public class TodoItem {
     private LocalDate dueDate; // Due date for the to-do item
     private boolean completed; // Flag to mark if the to-do item is completeds
     private Set<String> labels = new HashSet<>();
+    private String username;
 }

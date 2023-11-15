@@ -20,8 +20,8 @@ import jakarta.annotation.PostConstruct;
 @RequiredArgsConstructor
 public class InMemoryTodoItemRepositoryImpl implements TodoItemRepository {
 
-    private static List<TodoItem> todoItemList = new ArrayList<>();
-    private static long idCounter = 1;
+    private List<TodoItem> todoItemList = new ArrayList<>();
+    private long idCounter = 1;
 
     private final ObjectMapper objectMapper;
 
@@ -37,58 +37,62 @@ public class InMemoryTodoItemRepositoryImpl implements TodoItemRepository {
                 List<TodoItem> initialTodoList = objectMapper.readValue(inputStream, new TypeReference<List<TodoItem>>() {});
                 todoItemList.addAll(initialTodoList);
             }
+            idCounter = todoItemList.stream().mapToLong(TodoItem::getId).max().orElse(0) + 1;
             log.info("Loaded {} todo items", todoItemList.size());
         } catch (IOException e) {
             log.error("Error loading initial data", e);
         }
     }
 
-    public List<TodoItem> search(String query) {
+    public List<TodoItem> search(String query, String username) {
         String lowercaseQuery = query.toLowerCase();
 
         return todoItemList.stream()
                 .filter(item ->
-                        item.getTitle().toLowerCase().contains(lowercaseQuery) ||
-                                item.getDescription().toLowerCase().contains(lowercaseQuery) ||
-                                item.getLabels().stream().anyMatch(label -> label.toLowerCase().contains(lowercaseQuery))
+                        item.getUsername().equals(username) && (
+                                item.getTitle().toLowerCase().contains(lowercaseQuery) ||
+                                        item.getDescription().toLowerCase().contains(lowercaseQuery) ||
+                                        item.getLabels().stream().anyMatch(label -> label.toLowerCase().contains(lowercaseQuery))
+                        )
                 )
                 .collect(Collectors.toList());
     }
 
     // Retrieve all todo items
-    public List<TodoItem> getAllTodoItems() {
-        return todoItemList;
+    public List<TodoItem> getAllTodoItems(String username) {
+        return todoItemList.stream()
+                .filter(todoItem -> todoItem.getUsername().equals(username))
+                .collect(Collectors.toList());
     }
 
     // Retrieve a todo item by ID
-    public TodoItem getTodoItemById(long id) {
-        for (TodoItem item : todoItemList) {
-            if (item.getId() == id) {
-                return item;
-            }
-        }
-        return null; // Not found
+    public TodoItem getTodoItemById(long id, String username) {
+        return todoItemList.stream()
+                .filter(todoItem -> todoItem.getId() == id && todoItem.getUsername().equals(username))
+                .findFirst().orElse(null);
     }
 
     // Add a new todo item
-    public void addTodoItem(TodoItem todoItem) {
+    public void addTodoItem(TodoItem todoItem, String username) {
         todoItem.setId(idCounter++);
+        todoItem.setUsername(username);
         todoItemList.add(todoItem);
     }
 
     // Update an existing todo item
-    public void updateTodoItem(TodoItem updatedTodoItem) {
-        for (int i = 0; i < todoItemList.size(); i++) {
-            TodoItem existingTodoItem = todoItemList.get(i);
-            if (existingTodoItem.getId() == updatedTodoItem.getId()) {
-                todoItemList.set(i, updatedTodoItem);
-                return;
-            }
-        }
+    public void updateTodoItem(TodoItem updatedTodoItem, String username) {
+        updatedTodoItem.setUsername(username);
+        todoItemList = todoItemList.stream()
+                .map(existingTodoItem ->
+                        existingTodoItem.getId() == updatedTodoItem.getId() &&
+                                existingTodoItem.getUsername().equals(username) ? updatedTodoItem : existingTodoItem)
+                .toList();
     }
 
     // Delete a todo item by ID
-    public void deleteTodoItem(long id) {
-        todoItemList.removeIf(item -> item.getId() == id);
+    public void deleteTodoItem(long id, String username) {
+        todoItemList = todoItemList.stream()
+                .filter(item -> !(item.getId() == id && item.getUsername().equals(username)))
+                .collect(Collectors.toList());
     }
 }

@@ -5,54 +5,88 @@
     "description": "Draft and submit the project proposal for review",
     "dueDate": "2023-11-30",
     "completed": false,
-    "labels": ["Work", "Planning"]
+    "labels": ["Work", "Planning"],
+    "username": "user1"
   },
   {
     "id": 2,
-    "title": "Buy Groceries",
-    "description": "Purchase items for the week",
-    "dueDate": "2023-11-15",
+    "title": "Meeting with Team",
+    "description": "Conduct a team meeting to discuss project progress",
+    "dueDate": "2023-12-05",
     "completed": false,
-    "labels": ["Shopping", "Personal"]
+    "labels": ["Work", "Communication"],
+    "username": "user1"
   },
   {
     "id": 3,
-    "title": "Gym Workout",
-    "description": "Hit the gym for a workout session",
+    "title": "Shopping",
+    "description": "Buy groceries and essentials",
     "dueDate": "2023-11-20",
     "completed": false,
-    "labels": ["Fitness", "Health"]
+    "labels": ["Personal", "Shopping"],
+    "username": "user1"
   },
   {
     "id": 4,
-    "title": "Read Chapter 5",
-    "description": "Read and summarize Chapter 5 of the book",
-    "dueDate": "2023-11-25",
+    "title": "Read Book",
+    "description": "Finish reading the novel",
+    "dueDate": "2023-12-10",
     "completed": false,
-    "labels": ["Education", "Personal"]
+    "labels": ["Personal", "Hobby"],
+    "username": "user1"
   },
   {
     "id": 5,
-    "title": "Plan Weekend Trip",
-    "description": "Organize and plan a weekend getaway",
-    "dueDate": "2023-12-01",
+    "title": "Prepare Presentation",
+    "description": "Create a presentation for the upcoming meeting",
+    "dueDate": "2023-11-25",
     "completed": false,
-    "labels": ["Travel", "Planning"]
+    "labels": ["Work", "Presentation"],
+    "username": "user2"
   },
   {
     "id": 6,
-    "title": "Clean the House",
-    "description": "Perform a thorough cleaning of the house",
-    "dueDate": "2023-11-18",
+    "title": "Exercise",
+    "description": "Go for a morning jog",
+    "dueDate": "2023-11-28",
     "completed": false,
-    "labels": ["Home", "Personal"]
+    "labels": ["Personal", "Health"],
+    "username": "user2"
   },
   {
     "id": 7,
-    "title": "Complete Online Course",
-    "description": "Finish the remaining modules of the online course",
-    "dueDate": "2023-12-10",
+    "title": "Write Blog Post",
+    "description": "Draft a new blog post for the website",
+    "dueDate": "2023-12-02",
     "completed": false,
-    "labels": ["Education", "Work"]
+    "labels": ["Personal", "Blogging"],
+    "username": "user2"
+  },
+  {
+    "id": 8,
+    "title": "Project Coding",
+    "description": "Work on coding tasks for the project",
+    "dueDate": "2023-12-15",
+    "completed": false,
+    "labels": ["Work", "Coding"],
+    "username": "user2"
+  },
+  {
+    "id": 9,
+    "title": "Call Family",
+    "description": "Make a call to family members",
+    "dueDate": "2023-11-23",
+    "completed": false,
+    "labels": ["Personal", "Communication"],
+    "username": "user2"
+  },
+  {
+    "id": 10,
+    "title": "Learn New Skill",
+    "description": "Enroll in an online course and learn a new skill",
+    "dueDate": "2023-12-08",
+    "completed": false,
+    "labels": ["Personal", "Learning"],
+    "username": "user2"
   }
 ]

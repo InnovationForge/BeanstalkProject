@@ -15,27 +15,27 @@ public class TodoItemService {
 
     private final TodoItemRepository todoItemRepository;
 
-    public List<TodoItem> search(String query) {
-        return todoItemRepository.search(query);
+    public List<TodoItem> search(String query, String username) {
+        return todoItemRepository.search(query, username);
     }
 
-    public List<TodoItem> getAllTodoItems() {
-        return todoItemRepository.getAllTodoItems();
+    public List<TodoItem> getAllTodoItems(String username) {
+        return todoItemRepository.getAllTodoItems(username);
     }
 
-    public TodoItem getTodoItemById(long id) {
-        return todoItemRepository.getTodoItemById(id);
+    public TodoItem getTodoItemById(long id, String username) {
+        return todoItemRepository.getTodoItemById(id, username);
     }
 
-    public void saveTodoItem(TodoItem todoItem) {
+    public void saveTodoItem(TodoItem todoItem, String username) {
         if (todoItem.getId() == 0) {
-            todoItemRepository.addTodoItem(todoItem);
+            todoItemRepository.addTodoItem(todoItem, username);
         } else {
-            todoItemRepository.updateTodoItem(todoItem);
+            todoItemRepository.updateTodoItem(todoItem, username);
         }
     }
 
-    public void deleteTodoItem(long id) {
-        todoItemRepository.deleteTodoItem(id);
+    public void deleteTodoItem(long id, String username) {
+        todoItemRepository.deleteTodoItem(id, username);
     }
 }

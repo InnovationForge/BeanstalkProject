@@ -5,8 +5,8 @@
     "authorities": ["ROLE_USER"]
   },
   {
-    "username": "admin",
-    "password": "adminpassword",
-    "authorities": ["ROLE_ADMIN"]
+    "username": "user2",
+    "password": "password2",
+    "authorities": ["ROLE_USER"]
   }
 ]

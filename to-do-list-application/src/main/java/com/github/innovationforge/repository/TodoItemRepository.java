@@ -6,15 +6,15 @@ import com.github.innovationforge.model.TodoItem;
 
 public interface TodoItemRepository {
 
-    List<TodoItem> search(String query);
+    List<TodoItem> search(String query, String username);
 
-    List<TodoItem> getAllTodoItems();
+    List<TodoItem> getAllTodoItems(String username);
 
-    TodoItem getTodoItemById(long id);
+    TodoItem getTodoItemById(long id, String username);
 
-    void addTodoItem(TodoItem todoItem);
+    void addTodoItem(TodoItem todoItem, String username);
 
-    void updateTodoItem(TodoItem todoItem);
+    void updateTodoItem(TodoItem todoItem, String username);
 
-    void deleteTodoItem(long id);
+    void deleteTodoItem(long id, String username);
 }
