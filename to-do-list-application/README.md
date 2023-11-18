@@ -53,7 +53,7 @@ Here's a guide on the functionality I will implement in this To-Do List Applicat
 
 **User-Friendly Interface:**
 
-*   [ ] Create a user-friendly and responsive interface using Thymeleaf templates with a clean design and easy navigation.
+*   [x] Create a user-friendly and responsive interface using Thymeleaf templates with a clean design and easy navigation.
 
 **Feedback and Notifications:**
 
