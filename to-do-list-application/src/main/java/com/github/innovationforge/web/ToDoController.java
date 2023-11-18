@@ -30,12 +30,13 @@ public class ToDoController {
 
     @GetMapping("/searchForm")
     public String showSearchForm(Model model) {
-//        model.addAttribute("todoItem", new TodoItem());
+        model.addAttribute("title", "Search To-do Items");
         return "searchForm";
     }
     @GetMapping("/search")
     public String search(@RequestParam String query, Model model, Principal principal) {
         List<TodoItem> searchResults = todoItemService.search(query, principal.getName());
+        model.addAttribute("title", "Search To-do Items");
         model.addAttribute("searchResults", searchResults);
         model.addAttribute("query", query);
         return "searchResults";
@@ -43,12 +44,13 @@ public class ToDoController {
 
     @GetMapping("/")
     public String showCreateTodoItemForm(Model model) {
+        model.addAttribute("title", "Create To-do Item");
         model.addAttribute("todoItem", new TodoItem());
         return "createToDoItem";
     }
 
     @PostMapping("/createToDoItem")
-    public String createTodoItem(TodoItem todoItem, Principal principal) {
+    public String createTodoItem(TodoItem todoItem, Principal principal, Model model) {
         // Add validation and error handling as needed
         log.info("Creating to-do item: {}", todoItem);
         // Call your service to save the todo item to your data store
@@ -56,6 +58,7 @@ public class ToDoController {
         // Create and store a success notification
         Notification notification = new Notification("To-do item created successfully", "success");
         session.setAttribute("notification", notification);
+        model.addAttribute("title", "Create To-do Item");
         return "redirect:/todoList";
     }
 
@@ -87,6 +90,7 @@ public class ToDoController {
         }
         // Add the list of todo items to the model
         model.addAttribute("filteredTodoItems", filteredTodoItems);
+        model.addAttribute("title", "To-do List");
         // Return the name of the Thymeleaf template for rendering
         return "todoList";
     }
@@ -99,24 +103,27 @@ public class ToDoController {
         log.info("Editing to-do item: {}", todoItem);
         model.addAttribute("todoItem", todoItem);
         // Return the name of the Thymeleaf template for rendering§
+        model.addAttribute("title", "Edit To-do Item");
         return "editTodoItemForm";
     }
 
     @PostMapping("/updateTodoItem")
-    public String updateTodoItem(@ModelAttribute("todoItem") TodoItem updatedTodoItem,Principal principal) {
+    public String updateTodoItem(@ModelAttribute("todoItem") TodoItem updatedTodoItem,Principal principal, Model model) {
         log.info("Updating to-do item: {}", updatedTodoItem);
         todoItemService.saveTodoItem(updatedTodoItem, principal.getName());
         Notification notification = new Notification("To-do item updated successfully", "info");
         session.setAttribute("notification", notification);
+        model.addAttribute("title", "Update To-do Item");
         return "redirect:/todoList";
     }
 
     @GetMapping("/deleteTodoItem/{id}")
-    public String deleteTodoItem(@PathVariable long id, Principal principal) {
+    public String deleteTodoItem(@PathVariable long id, Principal principal, Model model) {
         log.info("Deleting to-do item with ID: {}", id);
         todoItemService.deleteTodoItem(id, principal.getName());
         Notification notification = new Notification("To-do item deleted successfully", "danger");
         session.setAttribute("notification", notification);
+        model.addAttribute("title", "Delete To-do Item");
         return "redirect:/todoList";
     }
 }
