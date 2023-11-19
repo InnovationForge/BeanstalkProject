@@ -49,7 +49,7 @@ Here's a guide on the functionality I will implement in this To-Do List Applicat
 
 **Error Handling:**
 
-*   [ ] Handle and display meaningful error messages to users when they encounter issues, such as validation errors or failed to-do item updates.
+*   [x] Handle and display meaningful error messages to users when they encounter issues, such as validation errors or failed to-do item updates.
 
 **User-Friendly Interface:**
 

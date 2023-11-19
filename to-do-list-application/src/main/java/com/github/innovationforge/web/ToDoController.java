@@ -13,16 +13,19 @@ import com.github.innovationforge.model.TodoItem;
 import com.github.innovationforge.service.TodoItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 @Slf4j
 @RequiredArgsConstructor
+@Validated
 public class ToDoController {
 
     private final TodoItemService todoItemService;
@@ -50,7 +53,7 @@ public class ToDoController {
     }
 
     @PostMapping("/createToDoItem")
-    public String createTodoItem(TodoItem todoItem, Principal principal, Model model) {
+    public String createTodoItem(@Valid TodoItem todoItem, Principal principal, Model model) {
         // Add validation and error handling as needed
         log.info("Creating to-do item: {}", todoItem);
         // Call your service to save the todo item to your data store
