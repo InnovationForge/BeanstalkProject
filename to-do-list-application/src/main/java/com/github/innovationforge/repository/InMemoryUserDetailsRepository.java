@@ -1,15 +1,7 @@
-package com.github.innovationforge.repository;// InMemoryUserDetailsRepository.java
+package com.github.innovationforge.repository;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.innovationforge.model.TodoItem;
-import com.github.innovationforge.util.UserConverter;
-import com.github.innovationforge.model.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.innovationforge.model.User;
+import com.github.innovationforge.util.UserConverter;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Repository;
 import jakarta.annotation.PostConstruct;
 
 @Repository
