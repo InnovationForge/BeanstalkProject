@@ -6,7 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -20,7 +22,7 @@ import jakarta.annotation.PostConstruct;
 @RequiredArgsConstructor
 public class InMemoryTodoItemRepositoryImpl implements TodoItemRepository {
 
-    private List<TodoItem> todoItemList = new ArrayList<>();
+    private final AtomicReference<List<TodoItem>> todoItemRef = new AtomicReference<>(Collections.emptyList());
     private long idCounter = 1;
 
     private final ObjectMapper objectMapper;
@@ -35,10 +37,10 @@ public class InMemoryTodoItemRepositoryImpl implements TodoItemRepository {
         try (InputStream inputStream = getClass().getResourceAsStream("/data/initial-todo-list.json")) {
             if (inputStream != null) {
                 List<TodoItem> initialTodoList = objectMapper.readValue(inputStream, new TypeReference<List<TodoItem>>() {});
-                todoItemList.addAll(initialTodoList);
+                todoItemRef.set(new ArrayList<>(initialTodoList));
             }
-            idCounter = todoItemList.stream().mapToLong(TodoItem::getId).max().orElse(0) + 1;
-            log.info("Loaded {} todo items", todoItemList.size());
+            idCounter = todoItemRef.get().stream().mapToLong(TodoItem::getId).max().orElse(0) + 1;
+            log.info("Loaded {} todo items", todoItemRef.get().size());
         } catch (IOException e) {
             log.error("Error loading initial data", e);
         }
@@ -47,7 +49,7 @@ public class InMemoryTodoItemRepositoryImpl implements TodoItemRepository {
     public List<TodoItem> search(String query, String username) {
         String lowercaseQuery = query.toLowerCase();
 
-        return todoItemList.stream()
+        return todoItemRef.get().stream()
                 .filter(item ->
                         item.getUsername().equals(username) && (
                                 item.getTitle().toLowerCase().contains(lowercaseQuery) ||
@@ -58,60 +60,47 @@ public class InMemoryTodoItemRepositoryImpl implements TodoItemRepository {
                 .collect(Collectors.toList());
     }
 
-    // Retrieve all todo items
     public List<TodoItem> getAllTodoItems(String username) {
-        return todoItemList.stream()
+        return todoItemRef.get().stream()
                 .filter(todoItem -> todoItem.getUsername().equals(username))
                 .collect(Collectors.toList());
     }
 
-    // Retrieve a todo item by ID
     public TodoItem getTodoItemById(long id, String username) {
-        return todoItemList.stream()
+        return todoItemRef.get().stream()
                 .filter(todoItem -> todoItem.getId() == id && todoItem.getUsername().equals(username))
                 .findFirst().orElse(null);
     }
 
-    // Add a new todo item
     public synchronized void addTodoItem(TodoItem todoItem, String username) {
-        // Create a mutable ArrayList containing the elements of todoItemList
-        List<TodoItem> mutableList = new ArrayList<>(todoItemList);
-
-        // Now you can add elements to the mutable list
+        List<TodoItem> mutableList = new ArrayList<>(todoItemRef.get());
         todoItem.setId(idCounter++);
         todoItem.setUsername(username);
         mutableList.add(todoItem);
-
-        // After adding all necessary elements, update todoItemList with the new list
-        todoItemList = mutableList;
+        todoItemRef.set(Collections.unmodifiableList(mutableList));
     }
 
-    // Update an existing todo item
     public synchronized void updateTodoItem(TodoItem updatedTodoItem, String username) {
         updatedTodoItem.setUsername(username);
 
-        // Create a mutable ArrayList containing the elements of todoItemList
-        List<TodoItem> mutableList = new ArrayList<>(todoItemList);
+        List<TodoItem> mutableList = new ArrayList<>(todoItemRef.get());
 
         mutableList = mutableList.stream()
                 .map(existingTodoItem ->
                         existingTodoItem.getId() == updatedTodoItem.getId() &&
                                 existingTodoItem.getUsername().equals(username) ? updatedTodoItem : existingTodoItem)
-                .toList();
-        // After adding all necessary elements, update todoItemList with the new list
-        todoItemList = mutableList;
+                .collect(Collectors.toList());
+
+        todoItemRef.set(Collections.unmodifiableList(mutableList));
     }
 
-    // Delete a todo item by ID
-    public void deleteTodoItem(long id, String username) {
-        // Create a mutable ArrayList containing the elements of todoItemList
-        List<TodoItem> mutableList = new ArrayList<>(todoItemList);
+    public synchronized void deleteTodoItem(long id, String username) {
+        List<TodoItem> mutableList = new ArrayList<>(todoItemRef.get());
 
         mutableList = mutableList.stream()
                 .filter(item -> !(item.getId() == id && item.getUsername().equals(username)))
                 .collect(Collectors.toList());
 
-        // After adding all necessary elements, update todoItemList with the new list
-        todoItemList = mutableList;
+        todoItemRef.set(Collections.unmodifiableList(mutableList));
     }
 }

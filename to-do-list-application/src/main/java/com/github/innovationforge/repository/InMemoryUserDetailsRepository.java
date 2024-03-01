@@ -6,8 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,7 +25,7 @@ import jakarta.annotation.PostConstruct;
 @Slf4j
 public class InMemoryUserDetailsRepository implements UserDetailsRepository {
 
-    private List<UserDetails> users = new ArrayList<>();
+    private final AtomicReference<List<UserDetails>> userDetailsRef = new AtomicReference<>(Collections.emptyList());
     private final ObjectMapper objectMapper;
     private final UserConverter userConverter;
 
@@ -38,9 +40,9 @@ public class InMemoryUserDetailsRepository implements UserDetailsRepository {
             if (inputStream != null) {
                 log.info("Loading initial data from {}", inputStream);
                 List<User> userList = objectMapper.readValue(inputStream, new TypeReference<List<User>>() {});
-                users = userConverter.convertToUserDetailsList(userList);
+                userDetailsRef.set(userConverter.convertToUserDetailsList(userList));
             }
-            log.info("Loaded {} users", users.size());
+            log.info("Loaded {} users", userDetailsRef.get().size());
         } catch (IOException e) {
             log.error("Error loading initial data", e);
         }
@@ -48,7 +50,7 @@ public class InMemoryUserDetailsRepository implements UserDetailsRepository {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        Optional<UserDetails> user = users.stream()
+        Optional<UserDetails> user = userDetailsRef.get().stream()
                 .filter(u -> u.getUsername().equals(username))
                 .findFirst();
 
@@ -56,10 +58,8 @@ public class InMemoryUserDetailsRepository implements UserDetailsRepository {
     }
 
     public synchronized void addUser(UserDetails newUser) {
-        // Create a mutable ArrayList containing the elements of todoItemList
-        List<UserDetails> mutableusersList = new ArrayList<>(users);
+        List<UserDetails> mutableusersList = new ArrayList<>(userDetailsRef.get());
         mutableusersList.add(newUser);
-        // After adding all necessary elements, update todoItemList with the new list
-        users = mutableusersList;
+        userDetailsRef.set(Collections.unmodifiableList(mutableusersList));
     }
 }
