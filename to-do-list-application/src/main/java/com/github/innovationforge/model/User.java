@@ -9,6 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+    //username
     private String username;
     private String password;
     private List<String> authorities;
